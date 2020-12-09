@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.SceneManagement;
 
 public class PlayerFoot : MonoBehaviour
 {
@@ -14,6 +16,16 @@ public class PlayerFoot : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
         {
             footContact_++;
+        }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Camera Foot"))
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Bumper"))
+        {
+            
         }
     }
 

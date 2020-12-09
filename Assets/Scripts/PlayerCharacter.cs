@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.SceneManagement;
 
 public class PlayerCharacter : MonoBehaviour
 {
@@ -22,8 +23,8 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private PlayerFoot foot;
 
     private const float DeadZone = 0.1f;
-    private const float MoveSpeed = 2.0f;
-    private const float JumpSpeed = 5.0f;
+    private const float MoveSpeed = 4.0f;
+    private const float JumpSpeed = 10.0f;
 
     private bool facingRight_ = true;
     private bool jumpButtonDown_ = false;
@@ -105,6 +106,7 @@ public class PlayerCharacter : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
+        
     }
 
     private void Jump()
@@ -138,4 +140,5 @@ public class PlayerCharacter : MonoBehaviour
         spriteRenderer.flipX = !spriteRenderer.flipX;
         facingRight_ = !facingRight_;
     }
+
 }
