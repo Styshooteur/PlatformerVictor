@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCharacter : MonoBehaviour
 {
-    public enum State
+    private enum State
     {
         None,
         Idle,
@@ -15,19 +15,22 @@ public class PlayerCharacter : MonoBehaviour
         Jump
     }
 
-    private State currentState_ = State.None;
+    private State _currentState = State.None;
 
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private PlayerFoot foot;
+    
+    [FMODUnity.EventRef] [SerializeField] public string jumpEvent = "";
+
 
     private const float DeadZone = 0.1f;
     private const float MoveSpeed = 4.0f;
     private const float JumpSpeed = 10.0f;
 
-    private bool facingRight_ = true;
-    private bool jumpButtonDown_ = false;
+    private bool _facingRight = true;
+    private bool _jumpButtonDown = false;
 
     void Start()
     {
@@ -38,7 +41,7 @@ public class PlayerCharacter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            jumpButtonDown_ = true;
+            _jumpButtonDown = true;
         }
     }
 
@@ -54,26 +57,26 @@ public class PlayerCharacter : MonoBehaviour
             moveDir += 1.0f;
         }
 
-        if (foot.FootContact > 0 && jumpButtonDown_)
+        if (foot.FootContact_ > 0 && _jumpButtonDown)
         {
             Jump();
         }
-        jumpButtonDown_ = false;
+        _jumpButtonDown = false;
 
         var vel = body.velocity;
         body.velocity = new Vector2(MoveSpeed * moveDir, vel.y);
         //We flip the characters when not facing in the right direction
-        if (moveDir > DeadZone && !facingRight_)
+        if (moveDir > DeadZone && !_facingRight)
         {
             Flip();
         }
 
-        if (moveDir < -DeadZone && facingRight_)
+        if (moveDir < -DeadZone && _facingRight)
         {
             Flip();
         }
         //We manage the state machine of the character
-        switch (currentState_)
+        switch (_currentState)
         {
             case State.Idle:
                 if (Mathf.Abs(moveDir) > DeadZone)
@@ -81,7 +84,7 @@ public class PlayerCharacter : MonoBehaviour
                     ChangeState(State.Walk);
                 }
 
-                if (foot.FootContact == 0)
+                if (foot.FootContact_ == 0)
                 {
                     ChangeState(State.Jump);
                 }
@@ -92,13 +95,13 @@ public class PlayerCharacter : MonoBehaviour
                     ChangeState(State.Idle);
                 }
 
-                if (foot.FootContact == 0)
+                if (foot.FootContact_ == 0)
                 {
                     ChangeState(State.Jump);
                 }
                 break;
             case State.Jump:
-                if (foot.FootContact > 0)
+                if (foot.FootContact_ > 0)
                 {
                     ChangeState(State.Idle);
                 }
@@ -111,6 +114,7 @@ public class PlayerCharacter : MonoBehaviour
 
     private void Jump()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(jumpEvent, transform.position);
         var vel = body.velocity;
         body.velocity = new Vector2(vel.x, JumpSpeed);
     }
@@ -132,13 +136,13 @@ public class PlayerCharacter : MonoBehaviour
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
 
-        currentState_ = state;
+        _currentState = state;
     }
 
     void Flip()
     {
         spriteRenderer.flipX = !spriteRenderer.flipX;
-        facingRight_ = !facingRight_;
+        _facingRight = !_facingRight;
     }
 
 }

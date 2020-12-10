@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Serialization;
+
+public class MoveCamera : MonoBehaviour
+{
+    [SerializeField] private Rigidbody2D body;
+
+    private const float MoveSpeed = 0.5f;
+    private const float StartDelaySeconds = 3.0f;
+
+    private void Move()
+    {
+        var vel = body.velocity;
+        body.velocity = new Vector2(vel.x, MoveSpeed);
+    }
+
+    private void Start()
+    {
+        Move();
+    }
+    
+}

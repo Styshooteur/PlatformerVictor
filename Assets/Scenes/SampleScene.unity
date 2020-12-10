@@ -583,6 +583,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 394661118}
   body: {fileID: 394661116}
   foot: {fileID: 758843537}
+  jumpEvent: event:/Jump
 --- !u!212 &394661118
 SpriteRenderer:
   m_ObjectHideFlags: 0
