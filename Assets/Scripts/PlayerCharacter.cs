@@ -19,7 +19,7 @@ public class PlayerCharacter : MonoBehaviour
 
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Rigidbody2D body;
+    [SerializeField] public Rigidbody2D body;
     [SerializeField] private PlayerFoot foot;
     
     [FMODUnity.EventRef] [SerializeField] public string jumpEvent = "";
