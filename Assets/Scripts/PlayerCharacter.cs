@@ -21,7 +21,7 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] public Rigidbody2D body;
     [SerializeField] private PlayerFoot foot;
-    
+
     [FMODUnity.EventRef] [SerializeField] public string jumpEvent = "";
 
 
@@ -144,5 +144,5 @@ public class PlayerCharacter : MonoBehaviour
         spriteRenderer.flipX = !spriteRenderer.flipX;
         _facingRight = !_facingRight;
     }
-
+    
 }
