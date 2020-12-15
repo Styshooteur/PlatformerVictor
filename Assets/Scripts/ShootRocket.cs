@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 
 public class ShootRocket : MonoBehaviour
@@ -14,5 +16,10 @@ public class ShootRocket : MonoBehaviour
         {
             Instantiate(projectile, transform.position, Quaternion.identity);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        //float shootFreq = new.Random;
     }
 }

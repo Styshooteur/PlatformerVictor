@@ -19,15 +19,18 @@ public class PlayerCharacter : MonoBehaviour
 
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] public Rigidbody2D body;
+    [SerializeField] private Rigidbody2D body;
     [SerializeField] private PlayerFoot foot;
+    [SerializeField] private GameManager gameManager;
+    
 
-    [FMODUnity.EventRef] [SerializeField] public string jumpEvent = "";
+    [FMODUnity.EventRef] [SerializeField] private string jumpEvent = "";
 
 
     private const float DeadZone = 0.1f;
     private const float MoveSpeed = 4.0f;
-    private const float JumpSpeed = 10.0f;
+    private const float JumpSpeed = 11.0f;
+    private const float BumpForce = 25.0f;
 
     private bool _facingRight = true;
     private bool _jumpButtonDown = false;
@@ -143,6 +146,30 @@ public class PlayerCharacter : MonoBehaviour
     {
         spriteRenderer.flipX = !spriteRenderer.flipX;
         _facingRight = !_facingRight;
+    }
+    
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("KillingZone"))
+        {
+            gameManager.GameOver();
+        }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Bumper"))
+        {
+            body.AddForce(transform.up * BumpForce, ForceMode2D.Impulse);
+        }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Rocket"))
+        {
+            gameManager.GameOver();
+        }
+        
+        if (other.gameObject.layer == LayerMask.NameToLayer("EndRobot"))
+        {
+            gameManager.Victory();
+        }
     }
     
 }
