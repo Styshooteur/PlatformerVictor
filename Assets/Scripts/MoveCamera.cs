@@ -8,8 +8,7 @@ public class MoveCamera : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D body;
 
-    private const float MoveSpeed = 0.5f;
-    private const float StartDelaySeconds = 3.0f;
+    private const float MoveSpeed = 1.5f;
 
     private void Move()
     {

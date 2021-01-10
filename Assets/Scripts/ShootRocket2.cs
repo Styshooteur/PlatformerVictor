@@ -8,13 +8,11 @@ using Random = UnityEngine.Random;
 using UnityEngine. SceneManagement;
 
 
-public class ShootRocket : MonoBehaviour
+public class ShootRocket2 : MonoBehaviour
 {
     [SerializeField] private GameObject projectile;
 
-    private Rigidbody2D rb;
     private float _spawnFrequency = 0.0f;
-    private int speed = 2;
    
     
 
@@ -25,7 +23,7 @@ public class ShootRocket : MonoBehaviour
 
         if (projectile != null)
         {
-            InvokeRepeating("SpawnRocket", 1f, _spawnFrequency);
+            InvokeRepeating("SpawnRocket", 5f, _spawnFrequency);
         }
     }
     
@@ -40,6 +38,7 @@ public class ShootRocket : MonoBehaviour
 
     void SpawnRocket()
     {
-        Instantiate(projectile, transform.position, Quaternion.identity);
+        Instantiate(projectile, transform.position, Quaternion.identity); 
     }
 }
+

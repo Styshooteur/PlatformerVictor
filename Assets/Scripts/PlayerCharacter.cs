@@ -29,8 +29,8 @@ public class PlayerCharacter : MonoBehaviour
 
     private const float DeadZone = 0.1f;
     private const float MoveSpeed = 4.0f;
-    private const float JumpSpeed = 11.0f;
-    private const float BumpForce = 25.0f;
+    private const float JumpSpeed = 12.0f;
+    private const float BumpForce = 28.0f;
 
     private bool _facingRight = true;
     private bool _jumpButtonDown = false;
@@ -42,7 +42,7 @@ public class PlayerCharacter : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
             _jumpButtonDown = true;
         }
@@ -50,15 +50,15 @@ public class PlayerCharacter : MonoBehaviour
 
     void FixedUpdate()
     {
-        float moveDir = 0.0f;
-        if (Input.GetKey(KeyCode.LeftArrow))
+        /*float moveDir = 0.0f;
+        if (Input.GetButtonDown("Left"))
         {
             moveDir -= 1.0f;
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetButtonDown("Right"))
         {
             moveDir += 1.0f;
-        }
+        }*/
 
         if (foot.FootContact_ > 0 && _jumpButtonDown)
         {
@@ -67,14 +67,14 @@ public class PlayerCharacter : MonoBehaviour
         _jumpButtonDown = false;
 
         var vel = body.velocity;
-        body.velocity = new Vector2(MoveSpeed * moveDir, vel.y);
+        body.velocity = new Vector2(MoveSpeed * Input.GetAxis("Horizontal"), vel.y);
         //We flip the characters when not facing in the right direction
-        if (moveDir > DeadZone && !_facingRight)
+        if (Input.GetAxis("Horizontal") > DeadZone && !_facingRight)
         {
             Flip();
         }
 
-        if (moveDir < -DeadZone && _facingRight)
+        if (Input.GetAxis("Horizontal") < -DeadZone && _facingRight)
         {
             Flip();
         }
@@ -82,7 +82,7 @@ public class PlayerCharacter : MonoBehaviour
         switch (_currentState)
         {
             case State.Idle:
-                if (Mathf.Abs(moveDir) > DeadZone)
+                if (Mathf.Abs(Input.GetAxis("Horizontal")) > DeadZone)
                 {
                     ChangeState(State.Walk);
                 }
@@ -93,7 +93,7 @@ public class PlayerCharacter : MonoBehaviour
                 }
                 break;
             case State.Walk:
-                if (Mathf.Abs(moveDir) < DeadZone)
+                if (Mathf.Abs(Input.GetAxis("Horizontal")) < DeadZone)
                 {
                     ChangeState(State.Idle);
                 }
