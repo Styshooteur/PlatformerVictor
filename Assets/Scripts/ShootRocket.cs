@@ -14,9 +14,8 @@ public class ShootRocket : MonoBehaviour
 
     private Rigidbody2D rb;
     private float _spawnFrequency = 0.0f;
-    private int speed = 2;
-   
-    
+
+
 
 
     void Start()
