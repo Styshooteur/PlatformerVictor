@@ -150,6 +150,8 @@ public class PlayerCharacter : MonoBehaviour
     
     
     private void OnTriggerEnter2D(Collider2D other)
+    
+    // Managing collision with each types of game element
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("KillingZone"))
         {

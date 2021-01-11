@@ -9,7 +9,8 @@ public class MoveCamera : MonoBehaviour
     [SerializeField] private Rigidbody2D body;
 
     private const float MoveSpeed = 1.5f;
-
+    
+    // The camera is moving upwards at a constant speed allover the game
     private void Move()
     {
         var vel = body.velocity;

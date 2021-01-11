@@ -19,11 +19,11 @@ public class ShootRocket1 : MonoBehaviour
 
     void Start()
     {
-        _spawnFrequency = Random.Range(6, 12);
+        _spawnFrequency = Random.Range(10, 20);
 
         if (projectile != null)
         {
-            InvokeRepeating("SpawnRocket", 3f, _spawnFrequency);
+            InvokeRepeating("SpawnRocket", 5f, _spawnFrequency);
         }
     }
     

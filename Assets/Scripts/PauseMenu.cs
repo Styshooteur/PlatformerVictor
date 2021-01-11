@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    [FMODUnity.EventRef] [SerializeField] private string menuEvent = "";
+    
+    private static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
     
@@ -27,6 +29,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(menuEvent, transform.position);
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
@@ -40,6 +43,7 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(menuEvent, transform.position);
         Application.Quit();
     }
 }

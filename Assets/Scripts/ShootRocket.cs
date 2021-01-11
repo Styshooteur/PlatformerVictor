@@ -19,12 +19,14 @@ public class ShootRocket : MonoBehaviour
 
 
     void Start()
+    
+    // A random frequency of rocket launch is generated each time you restart the level
     {
-        _spawnFrequency = Random.Range(6, 12);
+        _spawnFrequency = Random.Range(10, 20);
 
         if (projectile != null)
         {
-            InvokeRepeating("SpawnRocket", 1f, _spawnFrequency);
+            InvokeRepeating("SpawnRocket", 2f, _spawnFrequency);
         }
     }
     

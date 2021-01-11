@@ -8,30 +8,38 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _hitScreen;
+    [SerializeField] private GameObject hitScreen;
+    [SerializeField] private GameObject musicManager;
+    [FMODUnity.EventRef] [SerializeField] private string hitEvent = "";
+    [FMODUnity.EventRef] [SerializeField] private string victoryEvent = "";
+    
     public void GameOver()
+    // The screen turns red each time you die cause of rockets or killing zone
     {
-        var color = _hitScreen.GetComponent<Image>().color;
+        FMODUnity.RuntimeManager.PlayOneShot(hitEvent, transform.position);
+        var color = hitScreen.GetComponent<Image>().color;
         color.a = 0.8f;    
-        _hitScreen.GetComponent<Image>().color = color;
+        hitScreen.GetComponent<Image>().color = color;
         SceneManager.LoadScene("GameScene");
     }
 
     private void Update()
     {
-        if (_hitScreen != null)
+        if (hitScreen != null)
         {
-            if (_hitScreen.GetComponent<Image>().color.a > 0)
+            if (hitScreen.GetComponent<Image>().color.a > 0)
             {
-                var color = _hitScreen.GetComponent<Image>().color;
+                var color = hitScreen.GetComponent<Image>().color;
                 color.a -= 0.01f;
-                _hitScreen.GetComponent<Image>().color = color;    
+                hitScreen.GetComponent<Image>().color = color;    
             }
         }
     }
 
     public void Victory()
     {
+        Destroy(musicManager);
+        FMODUnity.RuntimeManager.PlayOneShot(victoryEvent, transform.position);
         SceneManager.LoadScene("Victory");
     }
     
